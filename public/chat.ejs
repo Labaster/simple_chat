@@ -1,8 +1,11 @@
-const ENV = document.currentScript.getAttribute('env') || 'development';
+const ENV = '<%= env %>';
+console.log(ENV);
 
-$(() => {  
-  const url = ENV === 'production' ? 'https://chat-nodejs-socketsio.herokuapp.com/' : 'http://localhost:3000';
-  const socket = io.connect(url);
+$(() => {
+  // dev
+  // const NODE_ENV = process.env.NODE_ENV || 'development';
+  // const socket = io.connect(NODE_ENV === 'production' ? 'https://chat-nodejs-socketsio.herokuapp.com/' : "http://localhost:3000");
+  const socket = io.connect("http://localhost:3000");
 
   const message = $("#message");
   const username = $("#username");

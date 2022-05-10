@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "start-dev": "NODE_ENV=development PORT=3000 supervisor index.js",
-    "start": "NODE_ENV=development PORT=3000 node index.js"
+    "start": "NODE_ENV=production PORT=3000 node index.js"
   },
   "author": "",
   "license": "ISC",
