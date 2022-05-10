@@ -4,16 +4,16 @@ $(() => {
   const url = ENV === 'production' ? 'https://chat-nodejs-socketsio.herokuapp.com/' : 'http://localhost:3000';
   const socket = io.connect(url);
 
-  const message = $("#message");
-  const username = $("#username");
-  const send_message = $("#send_message");
-  const send_username = $("#send_username");
-  const chatroom = $("#chatroom");
-  const feedback = $("#feedback");
+  const message = $('#message');
+  const username = $('#username');
+  const send_message = $('#send_message');
+  const send_username = $('#send_username');
+  const chatroom = $('#chatroom');
+  const feedback = $('#feedback');
 
   send_message.click(() => {
     if (message.val()) {
-      socket.emit("new_message", {
+      socket.emit('new_message', {
         message: message.val(),
         className: alertClass
       });
@@ -23,27 +23,7 @@ $(() => {
   const max = 6;
   const random = Math.floor(Math.random() * (max - min)) + min;
 
-  let alertClass;
-  switch (random) {
-    case 1:
-      alertClass = "secondary";
-      break;
-    case 2:
-      alertClass = "danger";
-      break;
-    case 3:
-      alertClass = "success";
-      break;
-    case 4:
-      alertClass = "warning";
-      break;
-    case 5:
-      alertClass = "info";
-      break;
-    case 6:
-      alertClass = "light";
-      break;
-  }
+  const alertClass = ['secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'][random];
 
   socket.on("add_mess", data => {
     feedback.html("");
@@ -59,9 +39,7 @@ $(() => {
     );
   });
 
-  send_username.click(() => {
-    socket.emit("change_username", { username: username.val() });
-  });
+  send_username.click(() => socket.emit("change_username", { username: username.val() }));
 
   message.bind("keypress", () => socket.emit("typing"));
 
