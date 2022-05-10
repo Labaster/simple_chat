@@ -24,6 +24,7 @@ render(app, {
 });
 
 const server = app.listen(PORT, () => console.log(`Server started at port http://localhost:${PORT}`));
+
 const io = new SocketIo(server);
 
 io.on('connection', (socket) => {
