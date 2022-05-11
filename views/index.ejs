@@ -17,8 +17,8 @@
 
     <section>
       <div id="change_username">
-	<input id="username" type="text" />
-	<button id="send_username" type="button">Change username</button>
+        <input id="username" type="text" />
+        <button type="button" id="send_username" class="btn btn-primary">Change username</button>
       </div>
     </section>
 
@@ -26,10 +26,12 @@
       <section id="feedback"></section>
     </section>
 
-    <section id="input_zone"> 
-      <input id="message" class="vertical-align" type="text" />
-      <button id="send_message" class="vertical-align" type="button">Send</button>
-    </section>
+    <br>
+
+    <div class="input-group mb-3" id="input_zone">
+      <input id="message" type="text" class="form-control" placeholder="your message" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <button id="send_message" type="button" class="btn btn-success">Send</button>
+    </div>
     <script src="chat.js" webSocketConn="<%- webSocketConn %>"></script>
   </body>
 </html>

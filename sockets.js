@@ -5,7 +5,7 @@ import { chatModel } from './models/chat.js';
 export default (server) => {
   const io = new SocketIo(server);
 
-  return (new SocketIo(server)).on('connection', (socket) => {
+  return io.on('connection', (socket) => {
     console.log('New user connected!')
   
     socket.username = `Anonym_${nickName.default()}`;

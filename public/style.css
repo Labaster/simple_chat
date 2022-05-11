@@ -101,3 +101,7 @@
   .message:nth-child(odd) {
       background-color: rgb(87, 113, 230);
   }
+
+  .right {
+    text-align: right;
+  }
