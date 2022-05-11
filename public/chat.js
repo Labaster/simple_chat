@@ -2,8 +2,8 @@ const webSocketConn = document.currentScript.getAttribute('webSocketConn');
 
 const appendMsg = (toParrent = '', data = []) => {
   if (toParrent && data && data.length) {
-    data.forEach(({username = '', message = '', className = '', createdAt = ''}, index) => {
-      const elem = $(chatroom).append(
+    data.forEach(({username = '', message = '', className = '', createdAt = ''}) => {
+      $(chatroom).append(
         `<div class='alert alert-${className}'>
           <b>${username}</b>: ${message}
           <span class='right'><b>   time</b>: ${createdAt.replace(/T/g, ' ').replace(/\..*/, '')}</span>
