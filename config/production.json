@@ -1,6 +1,8 @@
 {
   "webSocketConn": "https://chat-nodejs-socketsio.herokuapp.com",
   "mongoDb": {
-    "uri": "mongodb+srv://master:12345@mongodbclaster.6plz2.mongodb.net/simple_chat?retryWrites=true&w=majority"
+    "uri": "mongodb+srv://<auth>@mongodbclaster.6plz2.mongodb.net/simple_chat?retryWrites=true&w=majority",
+    "user": "master",
+    "pwd": "12345"
   }
 }
