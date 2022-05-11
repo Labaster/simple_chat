@@ -1,8 +1,7 @@
-const ENV = document.currentScript.getAttribute('env') || 'development';
+const webSocketConn = document.currentScript.getAttribute('webSocketConn');
 
-$(() => {  
-  const url = ENV === 'production' ? 'https://chat-nodejs-socketsio.herokuapp.com/' : 'http://localhost:3000';
-  const socket = io.connect(url);
+$(() => {
+  const socket = io.connect(webSocketConn);
 
   const message = $('#message');
   const username = $('#username');
