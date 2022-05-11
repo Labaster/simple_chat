@@ -23,6 +23,7 @@ $(() => {
   const send_username = $('#send_username');
   const chatroom = $('#chatroom');
   const feedback = $('#feedback');
+  const nickName = $('#nickname');
 
   $.get(
     `${webSocketConn}/getChatHistory`,
@@ -32,30 +33,49 @@ $(() => {
     .fail(function (err) {
       console.log(err);
     });
-
+  
   const socket = io.connect(webSocketConn);
 
-  send_message.click(() => {
-    if (message.val()) {
-      socket.emit('new_message', {
+  socket.on('username', (username) => nickName.text(username));
+  
+  const sentMsg = () => {
+    socket.emit(
+      'new_message',
+      {
         message: message.val(),
         className: alertClass
-      });
-    }
+      }
+    );
+    message.focus();
+  };
+
+  message.keypress((e) => {
+    if (message.val() && e.key === 'Enter') sentMsg();
   });
+
+  send_message.click(() => {
+    if (message.val()) sentMsg();
+  });
+
   const min = 1;
   const max = 6;
   const random = Math.floor(Math.random() * (max - min)) + min;
 
   const alertClass = ['secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'][random];
 
-  socket.on("add_mess", data => {
+  socket.on('add_mess', data => {
     feedback.html('');
     message.val('');
     appendMsg(chatroom, [data]);
   });
 
-  send_username.click(() => socket.emit('change_username', { username: username.val() }));
+  send_username.click(() => {
+    if (username.val()) {
+      socket.emit('change_username', { username: username.val() });
+      nickName.text(username.val());
+      username.val('');
+    }
+  });
 
   message.bind('keypress', () => socket.emit('typing'));
 

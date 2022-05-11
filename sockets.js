@@ -9,6 +9,8 @@ export default (server) => {
     console.log('New user connected!')
   
     socket.username = `Anonym_${nickName.default()}`;
+
+    io.sockets.emit('username', socket.username);
   
     socket.on('change_username', (data) => socket.username = data.username);
   
@@ -28,7 +30,7 @@ export default (server) => {
   
     socket.on('typing', () => socket.broadcast.emit('typing', { username: socket.username }));
 
-    socket.on("connect_error", (err) => {
+    socket.on('connect_error', (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
   });
