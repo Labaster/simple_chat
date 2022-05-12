@@ -1,17 +1,20 @@
 import { Server as SocketIo } from 'socket.io';
 import nickName from 'generate-username';
+import _ from 'lodash';
 import { chatModel } from './models/chat.js';
 
 export default (server) => {
   const io = new SocketIo(server);
 
-  return io.on('connection', (socket) => {
-    console.log('New user connected!')
-  
-    socket.username = `Anonym_${nickName.default()}`;
+  return io.on('connection', (socket) => {    
+    if (!_.get(socket, 'handshake.headers.auth', '')) {
+      const randName = `Anonym_${nickName.default()}`;
+      socket.handshake.headers.auth = randName;
+      socket.username = randName;
+      io.sockets.emit('username', randName);
+      console.log(`We set new rand username: ${randName}!`);
+    }
 
-    io.sockets.emit('username', socket.username);
-  
     socket.on('change_username', (data) => socket.username = data.username);
   
     socket.on('new_message', (data) => {

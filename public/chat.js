@@ -25,6 +25,11 @@ $(() => {
   const feedback = $('#feedback');
   const nickName = $('#nickname');
 
+  const getAuthorization = () => localStorage.getItem('nickName') || '';
+  const setAuthorization = (value = '') => localStorage.setItem('nickName', value);
+
+  nickName.text(getAuthorization);
+
   $.get(
     `${webSocketConn}/getChatHistory`,
     (data) => {
@@ -34,9 +39,20 @@ $(() => {
       console.log(err);
     });
   
-  const socket = io.connect(webSocketConn);
+  const socket = io.connect(
+    webSocketConn,
+    {
+      extraHeaders: {
+        auth: getAuthorization(),
+      }
+    }
+  );
+  console.log(localStorage.getItem('nickName'));
 
-  socket.on('username', (username) => nickName.text(username));
+  socket.on('username', (username) => {
+    nickName.text(username);
+    setAuthorization(username);
+  });
   
   const sentMsg = () => {
     socket.emit(
@@ -71,6 +87,7 @@ $(() => {
 
   send_username.click(() => {
     if (username.val()) {
+      setAuthorization(username.val());
       socket.emit('change_username', { username: username.val() });
       nickName.text(username.val());
       username.val('');
