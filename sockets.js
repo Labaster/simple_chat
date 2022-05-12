@@ -6,7 +6,7 @@ import { chatModel } from './models/chat.js';
 export default (server) => {
   const io = new SocketIo(server);
 
-  return io.on('connection', (socket) => {    
+  return io.on('connection', (socket) => {
     if (!_.get(socket, 'handshake.headers.auth', '')) {
       const randName = `Anonym_${nickName.default()}`;
       socket.handshake.headers.auth = randName;

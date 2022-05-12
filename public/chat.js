@@ -38,7 +38,7 @@ $(() => {
     .fail(function (err) {
       console.log(err);
     });
-  
+
   const socket = io.connect(
     webSocketConn,
     {
@@ -47,7 +47,6 @@ $(() => {
       }
     }
   );
-  console.log(localStorage.getItem('nickName'));
 
   socket.on('username', (username) => {
     nickName.text(username);
