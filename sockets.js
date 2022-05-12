@@ -7,7 +7,6 @@ export default (server) => {
   const io = new SocketIo(server);
 
   return io.on('connection', (socket) => {
-    // console.log(socket.handshake);
     socket.username = _.get(socket, 'handshake.auth.token', '');
     if (!socket.username) {
       const randName = `Anonym_${nickName.default()}`;
@@ -18,11 +17,6 @@ export default (server) => {
     }
 
     socket.on('change_username', (data) => {
-      console.log(
-        'set new name before',
-        data.username,
-        socket.handshake.auth.token
-      )
       socket.username = data.username;
       socket.handshake.auth.token = data.username;
     });
@@ -36,6 +30,7 @@ export default (server) => {
       };
 
       chatModel.saveMsg(dataObj)
+        .then((result) => console.log('msg saved!'))
         .catch(err => console.log('chatModel.saveMsg -->', err));
       
       io.sockets.emit('add_mess', dataObj);

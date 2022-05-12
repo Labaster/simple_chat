@@ -27,11 +27,8 @@ $(() => {
 
   const getAuthorization = () => localStorage.getItem('nickName') || '';
   const setAuthorization = (value = '') => localStorage.setItem('nickName', value);
-  const nick = getAuthorization();
 
-  nickName.text(nick);
-
-  console.log('nick -->', nick);
+  nickName.text(getAuthorization());
 
   $.get(
     `${webSocketConn}/getChatHistory`,
@@ -47,7 +44,7 @@ $(() => {
     {
       transports: ['websocket', 'polling', 'flashsocket'],
       auth: {
-        token: nick,
+        token: getAuthorization(),
       },
     }
   );
@@ -92,7 +89,6 @@ $(() => {
     if (username.val()) {
       setAuthorization(username.val());
       socket.auth.token = username.val();
-      console.log(socket);
       socket.emit('change_username', { username: username.val() });
       nickName.text(username.val());
       username.val('');

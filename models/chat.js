@@ -21,7 +21,7 @@ const Chat = mongodConf.Model(collection, chatSchema);
  * @param {String} [message]
  */
 chatSchema.statics.saveMsg = (params = {}) => {
-  if (!params.username || !params.message) return false;
+  if (!params.username || !params.message) return new Promise((reject) => reject('Username or message is empty!'));
   return new Promise((resolve, reject) => {
     Chat.create(params, (err, result) => {
       if (err) reject(err);
