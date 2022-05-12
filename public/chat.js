@@ -42,12 +42,13 @@ $(() => {
       console.log(err);
     });
 
-  const socket = io.connect(
+  const socket = io(
     webSocketConn,
     {
-      extraHeaders: {
-        auth: nick,
-      }
+      transports: ['websocket', 'polling', 'flashsocket'],
+      auth: {
+        token: nick,
+      },
     }
   );
 
@@ -90,6 +91,8 @@ $(() => {
   send_username.click(() => {
     if (username.val()) {
       setAuthorization(username.val());
+      socket.auth.token = username.val();
+      console.log(socket);
       socket.emit('change_username', { username: username.val() });
       nickName.text(username.val());
       username.val('');
