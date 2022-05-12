@@ -28,7 +28,9 @@ $(() => {
   const getAuthorization = () => localStorage.getItem('nickName') || '';
   const setAuthorization = (value = '') => localStorage.setItem('nickName', value);
 
-  nickName.text(getAuthorization);
+  nickName.text(getAuthorization());
+
+  console.log(getAuthorization());
 
   $.get(
     `${webSocketConn}/getChatHistory`,
