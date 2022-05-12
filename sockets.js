@@ -7,7 +7,7 @@ export default (server) => {
   const io = new SocketIo(server);
 
   return io.on('connection', (socket) => {
-    console.log(socket);
+    console.log(socket.handshake);
     if (!_.get(socket, 'handshake.headers.auth', '')) {
       const randName = `Anonym_${nickName.default()}`;
       socket.handshake.headers.auth = randName;
