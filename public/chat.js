@@ -27,10 +27,11 @@ $(() => {
 
   const getAuthorization = () => localStorage.getItem('nickName') || '';
   const setAuthorization = (value = '') => localStorage.setItem('nickName', value);
+  const nick = getAuthorization();
 
-  nickName.text(getAuthorization());
+  nickName.text(nick);
 
-  console.log(getAuthorization());
+  console.log('nick -->', nick);
 
   $.get(
     `${webSocketConn}/getChatHistory`,
@@ -45,7 +46,7 @@ $(() => {
     webSocketConn,
     {
       extraHeaders: {
-        auth: getAuthorization(),
+        auth: nick,
       }
     }
   );
