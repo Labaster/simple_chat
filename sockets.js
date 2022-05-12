@@ -15,7 +15,10 @@ export default (server) => {
       console.log(`We set new rand username: ${randName}!`);
     }
 
-    socket.on('change_username', (data) => socket.username = data.username);
+    socket.on('change_username', (data) => {
+      socket.username = data.username;
+      socket.handshake.headers.auth = data.username;
+    });
   
     socket.on('new_message', (data) => {
       const dataObj = {
