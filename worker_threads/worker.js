@@ -10,12 +10,8 @@ const resizeVideo = ({ inputPath, size }) => {
     .audioCodec('libmp3lame')
     .videoCodec('libx264')
     .size(size)
-  .on('error', function (err) {
-    console.log("An error occurred: " + err.message);
-  })
-  .on('end', function () {
-    parentPort.postMessage(outputPath);
-  })
+  .on('error', (err) => console.log(`An error occurred: ${err.message}`))
+  .on('end', () => parentPort.postMessage(outputPath))
   .save(outputPath);
 };
 
