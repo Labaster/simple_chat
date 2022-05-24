@@ -8,8 +8,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start-dev": "NODE_ENV=development PORT=3000 supervisor index.js",
-    "start": "NODE_ENV=production PORT=3000 node index.js"
+    "start-dev": "NODE_ENV=development MON_PWD=12345 PORT=3000 supervisor index.js",
+    "start": "NODE_ENV=production MON_PWD=12345 PORT=3000 node index.js"
   },
   "author": "",
   "license": "ISC",
