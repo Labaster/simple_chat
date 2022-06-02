@@ -2,7 +2,7 @@
   "webSocketConn": "http://localhost:3000",
   "mongoDb": {
     "uri": "mongodb://localhost:27017/simple_chat",
-    "user": ""
+    "user": "",
     "connOptions": {
       "useCreateIndex": true,
       "useNewUrlParser": true,
